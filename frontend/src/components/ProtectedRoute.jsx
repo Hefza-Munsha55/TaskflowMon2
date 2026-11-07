@@ -1,0 +1,9 @@
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
+// Pages wrapped in this are only visible to logged-in users
+export default function ProtectedRoute({ children }) {
+  const { user, loading } = useAuth();
+  if (loading) return <p className="center muted">Loading...</p>;
+  return user ? children : <Navigate to="/login" replace />;
+}
